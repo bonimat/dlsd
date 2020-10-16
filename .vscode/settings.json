@@ -10,6 +10,17 @@
             "database": "dlsd",
             "username": "dlsdu",
             "password": "dlsdp"
+        },
+        {
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 5433,
+            "askForPassword": true,
+            "driver": "PostgreSQL",
+            "name": "devstack",
+            "group": "docker",
+            "database": "dlsd_f",
+            "username": "dlsdu"
         }
     ]
 }
