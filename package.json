@@ -1,0 +1,36 @@
+{
+  "name": "dlsd",
+  "version": "1.0.0",
+  "description": "Digital Learning Systems - Dashboard ## Overview Approcciare lo sviluppo di un tool per la gestione di informazioni contenute su sistemi digitali a supporto della didattica inteconnessi. 1. Autenticazione semplice (https://www.youtube.com/watch?v=vxu1RrR0vbw). Database : dlsd username : dlsdu password : dlsdp",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bonimat/dlsd.git"
+  },
+  "keywords": [],
+  "author": "Matteo Boni <bonimat@hotmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bonimat/dlsd/issues"
+  },
+  "homepage": "https://github.com/bonimat/dlsd#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  },
+  "dependencies": {
+    "bcrypt": "^5.0.0",
+    "dotenv": "^8.2.0",
+    "ejs": "^3.1.5",
+    "express": "^4.17.1",
+    "express-flash": "0.0.2",
+    "express-session": "^1.17.1",
+    "i": "^0.3.6",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0",
+    "pg": "^8.4.1"
+  }
+}
