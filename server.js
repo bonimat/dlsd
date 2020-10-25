@@ -49,9 +49,11 @@ app.get('/users/logout', (req, res) => {
 });
 
 app.post('/users/register', async (req, res) => {
-    let {firstname, email, password, password2} = req.body;
+    let {username,firstname, lastname, email, password, password2} = req.body;
     console.log({
+        username,
         firstname,
+        lastname,
         email,
         password,
         password2
@@ -59,7 +61,7 @@ app.post('/users/register', async (req, res) => {
 
     let errors = [];
 
-    if (!firstname || !email || !password || !password2) {
+    if (!username || !firstname || !lastname || !email || !password || !password2) {
         errors.push({message: "Please enter all fields."});
     }
 
@@ -71,6 +73,10 @@ app.post('/users/register', async (req, res) => {
         errors.push({message : "Passwords do not match."})
     }
 
+    if (username.length < 6) {
+        errors.push({message: "Username should be al least 8 characters."});
+    }
+
     if (errors.length > 0) {
         res.render("register", { errors } );   
     } else {
@@ -80,21 +86,26 @@ app.post('/users/register', async (req, res) => {
       console.log(email);
 
       pool.query(
-            `SELECT * FROM users WHERE email = $1`, [email], (err, results) => {
+            `SELECT username, email FROM users WHERE email = $1 OR username= $2`, [email, username], (err, results) => {
             if (err) {
                 console.log(err.message);
                 console.log(pool);
                 throw err;
             }
-            console.log(results.rows);
-            if (results.rows.length > 0) {
-                errors.push({message:"Email already registerd"});
-                res.render('register', { errors });
+            console.log('result '+results.rows);
+            if (results.rows.length > 0) { 
+                if (results.rows.email== email) {
+                    errors.push({message:"Email already registerd"});
+                    res.render('register', { errors });
+                } else {
+                    errors.push({message:"Username already registerd"});
+                    res.render('register', { errors });
+                }
             } else {
                 pool.query(
-                    `INSERT INTO users (firstname, email, password)
-                    VALUES ($1, $2, $3) 
-                    RETURNING id, password`,[firstname, email, hashadPassword],
+                    `INSERT INTO users (username, firstname, lastname, email, password,0)
+                    VALUES ($1, $2, $3, $4, $5) 
+                    RETURNING id, password`,[username, firstname,lastname, email, hashadPassword],
                     (err, results) => {
                         if (err) {
                             throw err
