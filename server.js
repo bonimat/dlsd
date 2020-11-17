@@ -133,7 +133,7 @@ app.post('/users/register', async (req, res) => {
                 } else {
                     pool.query(
                         // eslint-disable-next-line max-len
-                        `INSERT INTO users (username, firstname, lastname, email, password,0)
+                        `INSERT INTO users (username, firstname, lastname, email, password)
                         VALUES ($1, $2, $3, $4, $5) 
                         RETURNING id, password`,
                         [username, firstname, lastname, email, hashadPassword],

@@ -1,13 +1,15 @@
-const LocalStrategy = require("passport-local").Strategy;
-const { pool } = require("./dbConfig");
-const bcrypt = require("bcrypt");
+const LocalStrategy = require('passport-local').Strategy;
+const { pool } = require('./dbConfig');
+const bcrypt = require('bcrypt');
 
+// eslint-disable-next-line require-jsdoc
 function initialize(passport) {
     const autenticateUser = (email, password, done) => {
-
         pool.query(
-            `SELECT * FROM users WHERE email = $1`,[email], (err, results) => {
-                if (err){
+            `SELECT * FROM users WHERE email = $1`,
+            [email],
+            (err, results) => {
+                if (err) {
                     throw err;
                 }
 
@@ -24,36 +26,43 @@ function initialize(passport) {
                         if (isMatch) {
                             return done(null, user);
                         } else {
-                            return done (null, false, {message: "Password is not correct."});
+                            return done(null, false, {
+                                message: 'Password is not correct.',
+                            });
                         }
                     });
                 } else {
-                    return done(null, false, {message: "Email is not registered."});
+                    return done(null, false, {
+                        message: 'Email is not registered.',
+                    });
                 }
-
             }
         );
 
         passport.serializeUser((user, done) => done(null, user.id));
         passport.deserializeUser((id, done) => {
             pool.query(
-                `SELECT * FROM users WHERE id = $1`, [id], (err, results) => {
-                    if (err){
+                `SELECT * FROM users WHERE id = $1`,
+                [id],
+                (err, results) => {
+                    if (err) {
                         throw err;
-                    } 
+                    }
                     return done(null, results.rows[0]);
-            });
+                }
+            );
         });
+    };
 
-    }
-
-    passport.use(new LocalStrategy(
-        {
-            usernameField : "email",
-            passwordField : "password"
-        },
-        autenticateUser
-    ) );
+    passport.use(
+        new LocalStrategy(
+            {
+                usernameField: 'email',
+                passwordField: 'password',
+            },
+            autenticateUser
+        )
+    );
 }
 
 module.exports = initialize;

@@ -31,4 +31,11 @@ describe('Test application', function () {
     it('Check status Registration', function (done) {
         application.get('/users/register').expect(200, done);
     });
+    it('Check status Dashboard - No Registration - Redirect to Login', function (done) {
+        application.get('/users/dashboard').expect(302, done);
+        application.post('/users/dashboard').send({
+            email: 'bonimat@hotmail.com',
+            password: 'bonimat',
+        });
+    });
 });
