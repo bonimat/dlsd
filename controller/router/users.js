@@ -3,13 +3,14 @@ const express = require('express');
 const router = new express.Router();
 
 const models = require('../../models');
+const User = models.User;
+const Op = models.Sequelize.Op;
 
 const {
     checkAuthenticated,
     checkNotAuthenticated,
 } = require('../checkAuthenticated');
 
-const { pool } = require('../../config/dbConfig.js');
 const bcrypt = require('bcrypt');
 const passport = require('passport');
 
@@ -83,11 +84,17 @@ router.route('/users/register').post(async (req, res) => {
         console.log(username);
         console.log(email);
 
-        const users = await User.findOrCreate({
+        const user = await User.findOrCreate({
             attributes: ['email', 'username'],
+            /*
+    where: {
+    [Op.or]: [
+      { authorId: 12 },
+      { authorId: 13 }
+    ]
+  } */
             where: {
-                username: username,
-                email: email,
+                [Op.or]: [{ username: username }, { email: email }],
             },
             defaults: {
                 username: username,
@@ -98,8 +105,20 @@ router.route('/users/register').post(async (req, res) => {
                 roleid: 0,
             },
         });
-        console.log(users[0]);
-        console.log(users[1]);
+        console.log(user[0]);
+        console.log(user[1]);
+        if (user.isNewRecord) {
+            req.flash('success_msg', 'You are now registered. Please log in');
+            res.redirect('/users/login');
+        } else {
+            if (user[0].username == username) {
+                errors.push({ message: 'Username already registerd' });
+                res.render('register', { errors });
+            } else {
+                errors.push({ message: 'Email already registerd' });
+                res.render('register', { errors });
+            }
+        }
     }
 });
 /*
