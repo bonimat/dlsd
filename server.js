@@ -16,7 +16,7 @@ const initializePassport = require('./config/passportConfig');
 
 initializePassport(passport);
 let PORT = process.env.PORT || 4000;
-if (process.env.NODE_ENV === 'PRODUCTION') {
+if (process.env.NODE_ENV === 'production') {
     PORT = 4080;
 }
 

@@ -4,9 +4,9 @@
   "description": "Digital Learning Systems - Dashboard ## Overview Approcciare lo sviluppo di un tool per la gestione di informazioni contenute su sistemi digitali a supporto della didattica inteconnessi. 1. Autenticazione semplice (https://www.youtube.com/watch?v=vxu1RrR0vbw). Database : dlsd username : dlsdu password : dlsdp",
   "main": "index.js",
   "scripts": {
-    "start": "NODE_ENV=PRODUCTION node server.js",
-    "dev": "NODE_ENV=DEVELOPMENT nodemon server.js",
-    "test": "NODE_ENV=TEST mocha -w"
+    "start": "NODE_ENV=production node server.js",
+    "dev": "NODE_ENV=development nodemon server.js",
+    "test": "NODE_ENV=test mocha -w"
   },
   "repository": {
     "type": "git",

@@ -1,5 +1,9 @@
+require('dotenv').config();
 const express = require('express');
 const router = new express.Router();
+
+const models = require('../../models');
+
 const {
     checkAuthenticated,
     checkNotAuthenticated,
@@ -27,6 +31,78 @@ router.route('/users/logout').get((req, res) => {
     res.redirect('/users/login');
 });
 
+router.route('/users/register').post(async (req, res) => {
+    const {
+        username,
+        firstname,
+        lastname,
+        email,
+        password,
+        password2,
+    } = req.body;
+
+    console.log({
+        username,
+        firstname,
+        lastname,
+        email,
+        password,
+        password2,
+    });
+
+    const errors = [];
+
+    if (
+        !username ||
+        !firstname ||
+        !lastname ||
+        !email ||
+        !password ||
+        !password2
+    ) {
+        errors.push({ message: 'Please enter all fields.' });
+    }
+    if (password.length < 6) {
+        errors.push({ message: 'Password should be al least 6 characters.' });
+    }
+
+    if (password != password2) {
+        errors.push({ message: 'Passwords do not match.' });
+    }
+
+    if (username.length < 6) {
+        errors.push({ message: 'Username should be al least 8 characters.' });
+    }
+
+    if (errors.length > 0) {
+        res.render('register', { errors });
+    } else {
+        // For validation has passed
+        const hashadPassword = await bcrypt.hash(password, 10);
+        console.log(hashadPassword);
+        console.log(username);
+        console.log(email);
+
+        const users = await User.findOrCreate({
+            attributes: ['email', 'username'],
+            where: {
+                username: username,
+                email: email,
+            },
+            defaults: {
+                username: username,
+                email: email,
+                firstname: firstname,
+                lastname: lastname,
+                password: password,
+                roleid: 0,
+            },
+        });
+        console.log(users[0]);
+        console.log(users[1]);
+    }
+});
+/*
 router.route('/users/register').post(async (req, res) => {
     const {
         username,
@@ -123,7 +199,7 @@ router.route('/users/register').post(async (req, res) => {
         );
     }
 });
-
+*/
 router.route('/users/login').post(
     passport.authenticate('local', {
         successRedirect: '/users/dashboard',
