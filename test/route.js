@@ -1,7 +1,17 @@
 const app = require('../server');
 const request = require('supertest');
 const application = request(app);
-const expectchai = require('chai').expect;
+
+const requestchai = require('chai-http');
+const chai = require('chai');
+const { expect } = require('chai');
+chai.use(requestchai);
+
+const agent = chai.request.agent(app);
+
+after(function () {
+    agent.close();
+});
 
 describe('Route tests', function () {
     describe('Test works', function () {
@@ -22,14 +32,12 @@ describe('Route tests', function () {
                 .get('/')
                 .expect(200)
                 .end(function (err, res) {
-                    expectchai(res.status).to.equal(200);
-                    expectchai(res.text).to.contain('Home');
+                    expect(res.status).to.equal(200);
+                    expect(res.text).to.contain('Home');
                     return done();
                 });
         });
-        it('Check status Login', function (done) {
-            application.get('/users/login').expect(200, done);
-        });
+
         it('Check status Registration', function (done) {
             application.get('/users/register').expect(200, done);
         });
@@ -39,6 +47,35 @@ describe('Route tests', function () {
                 email: 'bonimat@hotmail.com',
                 password: 'bonimat',
             });
+        });
+    });
+    describe('Check Login', function () {
+        it('Check status Login', function (done) {
+            application.get('/users/login').expect(200, done);
+        });
+
+        it('Check login form', function (done) {
+            application
+                .post('/users/login')
+                .set('Accept', 'application/json')
+                .set('Content-Type', 'application/json')
+                .send({ email: 'bonimat@hotmail.com', password: 'bonimat' })
+                .end(function (err, res) {
+                    expect(res.statusCode).to.equal(302);
+                    done();
+                });
+        });
+        it('Check login with agent: auth ok', function () {
+            agent
+                .post('/users/login')
+                //  .type('form')
+                .send({
+                    email: 'bonimat@hotmail.com',
+                    password: 'bonimat',
+                })
+                .then(function (res) {
+                    expect(res).to.have.cookie('sessionid');
+                });
         });
     });
 });
