@@ -9,9 +9,9 @@ const passport = require('passport');
 const logger = require('morgan');
 
 /* changing structure */
-const usersRouter = require('./router/users.js');
+const usersRouter = require('./controller/router/users.js');
 
-const initializePassport = require('./passportConfig');
+const initializePassport = require('./config/passportConfig');
 // eslint-disable-next-line max-len
 
 initializePassport(passport);

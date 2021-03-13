@@ -1,5 +1,5 @@
 const { expect } = require('chai');
-const { pool } = require('./../dbConfig');
+const { pool } = require('./../config/dbConfig');
 
 describe('Database Tests', function () {
     describe('Test works', function () {

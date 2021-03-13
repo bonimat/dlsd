@@ -5,7 +5,7 @@ const {
     checkNotAuthenticated,
 } = require('../checkAuthenticated');
 
-const { pool } = require('../dbConfig');
+const { pool } = require('../../config/dbConfig.js');
 const bcrypt = require('bcrypt');
 const passport = require('passport');
 
