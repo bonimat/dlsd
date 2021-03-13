@@ -1,7 +1,7 @@
 require('dotenv').config;
 const express = require('express');
 const app = express();
-// const { pool } = require('./dbConfig');
+const { pool } = require('./config/dbConfig');
 // const bcrypt = require('bcrypt');
 const session = require('express-session');
 const flash = require('express-flash');
@@ -15,8 +15,10 @@ const initializePassport = require('./config/passportConfig');
 // eslint-disable-next-line max-len
 
 initializePassport(passport);
-
-const PORT = process.env.PORT || 4000;
+let PORT = process.env.PORT || 4000;
+if (process.env.NODE_ENV === 'PRODUCTION') {
+    PORT = 4080;
+}
 
 app.set('view engine', 'ejs');
 
@@ -47,4 +49,16 @@ if (!module.parent) {
         console.log(`Server running on port ${PORT}`);
     });
 }
+try {
+    console.log('Initializing database module');
+    console.log('Env ' + process.env.NODE_ENV);
+    pool.query('SELECT NOW()', (err, res) => {
+        console.log(res.rows);
+        pool.end();
+    });
+} catch (err) {
+    console.error(err);
+    process.exit(1); // Non-zero failure code
+}
+
 module.exports = app;
