@@ -54,7 +54,6 @@ try {
     console.log('Env ' + process.env.NODE_ENV);
     pool.query('SELECT NOW()', (err, res) => {
         console.log(res.rows);
-        pool.end();
     });
 } catch (err) {
     console.error(err);
