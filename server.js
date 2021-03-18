@@ -1,7 +1,7 @@
 require('dotenv').config;
 const express = require('express');
 const app = express();
-const { pool } = require('./config/dbConfig');
+const { sequelize } = require('./models/index.js');
 // const bcrypt = require('bcrypt');
 const session = require('express-session');
 const flash = require('express-flash');
@@ -12,6 +12,7 @@ const logger = require('morgan');
 const usersRouter = require('./controller/router/users.js');
 
 const initializePassport = require('./config/passportConfig');
+const db = require('./models');
 // eslint-disable-next-line max-len
 
 initializePassport(passport);
@@ -52,9 +53,14 @@ if (!module.parent) {
 try {
     console.log('Initializing database module');
     console.log('Env ' + process.env.NODE_ENV);
-    pool.query('SELECT NOW()', (err, res) => {
-        console.log(res.rows);
-    });
+    sequelize
+        .authenticate()
+        .then(() => {
+            console.log('Connection has been established successfully.');
+        })
+        .catch((err) => {
+            console.error('Unable to connect to the database:', err);
+        });
 } catch (err) {
     console.error(err);
     process.exit(1); // Non-zero failure code

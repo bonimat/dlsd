@@ -1,5 +1,6 @@
-const { expect } = require('chai');
+const { expect, assert } = require('chai');
 const { pool } = require('./../config/dbConfig');
+const { sequelize } = require('../models/index');
 
 describe('Database Tests', function () {
     describe('Test works', function () {
@@ -10,9 +11,8 @@ describe('Database Tests', function () {
 
     describe('Test connection', function () {
         it('Auth connection', async function () {
-            const result = await pool.query('select 1 as result');
-            console.log(result.rows[0].result);
-            expect(result.rows[0].result).to.be.equal(1);
+            await sequelize.authenticate();
+            assert(true, true);
         });
     });
 });

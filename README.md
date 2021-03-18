@@ -1,7 +1,26 @@
 # dlsd
 Digital Learning Systems - Dashboard
 ## Overview
+### Versione 1.2.0-0
+* ristrutturazione dell'architettura modello MVC
+* utilizzo dei TDD
+* Introduzione di Sequelize e Sequelize-CLI per la modellazione.
+* unificazione dell'utilizzo di configurazione e variabili di ambiente con dotenv. 
 
+#### File .env:
+DEV_DBUSER=
+DEV_DBPASS=
+DEV_DBHOST=
+DEV_DBPORT=
+TEST_DBUSER=
+TEST_DBPASS=
+TEST_DBHOST=
+TEST_DBPORT=
+PROD_DBNAME=
+DEV_DBNAME=
+TEST_DBNAME=
+
+### Versione 1.1.0-0
 Approcciare lo sviluppo di un tool per la gestione di informazioni contenute su sistemi digitali a supporto della didattica inteconnessi.
 1. Autenticazione semplice (https://www.youtube.com/watch?v=vxu1RrR0vbw).
 Database : dlsdb_1
