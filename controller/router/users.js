@@ -84,7 +84,7 @@ router.route('/users/register').post(async (req, res) => {
         console.log(username);
         console.log(email);
 
-        const user = await User.findOrCreate({
+        const [user, created] = await User.findOrCreate({
             attributes: ['email', 'username'],
             /*
     where: {
@@ -101,13 +101,11 @@ router.route('/users/register').post(async (req, res) => {
                 email: email,
                 firstname: firstname,
                 lastname: lastname,
-                password: password,
+                password: hashadPassword,
                 roleid: 0,
             },
         });
-        console.log(user[0]);
-        console.log(user[1]);
-        if (user.isNewRecord) {
+        if (created) {
             req.flash('success_msg', 'You are now registered. Please log in');
             res.redirect('/users/login');
         } else {
