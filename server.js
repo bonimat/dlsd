@@ -1,7 +1,9 @@
 require('dotenv').config;
 const express = require('express');
 const app = express();
-const { sequelize } = require('./models/index.js');
+const db = require('./models/index.js');
+const sequelize = db.sequelize;
+
 // const bcrypt = require('bcrypt');
 const session = require('express-session');
 const flash = require('express-flash');
@@ -12,7 +14,7 @@ const logger = require('morgan');
 const usersRouter = require('./controller/router/users.js');
 
 const initializePassport = require('./config/passportConfig');
-const db = require('./models');
+
 // eslint-disable-next-line max-len
 
 initializePassport(passport);
@@ -65,5 +67,9 @@ try {
     console.error(err);
     process.exit(1); // Non-zero failure code
 }
-
+db.Role.setup()
+    .then(console.log('Setting done!'))
+    .catch((err) => {
+        console.log('Some error in setting role table!');
+    });
 module.exports = app;

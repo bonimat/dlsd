@@ -4,8 +4,8 @@ const router = new express.Router();
 
 const models = require('../../models');
 const User = models.User;
+const Role = models.Role;
 const Op = models.Sequelize.Op;
-
 const {
     checkAuthenticated,
     checkNotAuthenticated,
@@ -83,6 +83,9 @@ router.route('/users/register').post(async (req, res) => {
         console.log(hashadPassword);
         console.log(username);
         console.log(email);
+        // const project = await Project.findOne({ where: { title: 'My Title' } });
+        const role = await Role.findOne({ where: { rolename: 'user' } });
+        console.log(role.id);
 
         const [user, created] = await User.findOrCreate({
             attributes: ['email', 'username'],
@@ -102,7 +105,7 @@ router.route('/users/register').post(async (req, res) => {
                 firstname: firstname,
                 lastname: lastname,
                 password: hashadPassword,
-                roleid: 0,
+                roleid: role.id,
             },
         });
         if (created) {

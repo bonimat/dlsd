@@ -13,6 +13,12 @@ module.exports = (sequelize, DataTypes) => {
             // define association here
             this.hasMany(models.User, { foreignKey: 'roleid' });
         }
+        static setup() {
+            return Promise.all([
+                this.findOrCreate({ where: { rolename: 'admin' } }),
+                this.findOrCreate({ where: { rolename: 'user' } }),
+            ]);
+        }
     }
     Role.init(
         {
@@ -28,5 +34,6 @@ module.exports = (sequelize, DataTypes) => {
             tableName: 'roles',
         }
     );
+
     return Role;
 };
