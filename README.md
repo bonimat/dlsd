@@ -1,6 +1,19 @@
 # dlsd
 Digital Learning Systems - Dashboard
 ## Overview
+
+## Link
+For starting 
+(https://www.youtube.com/watch?v=vxu1RrR0vbw)
+
+Fo sequelize
+https://sequelize.org/
+https://www.youtube.com/watch?v=bOHysWYMZM0
+
+For 'Reset password'
+https://www.youtube.com/watch?v=UV9FvlTySGg&t=273s
+http://sahatyalkabov.com/how-to-implement-password-reset-in-nodejs/
+
 ### Versione 1.2.0-0
 * ristrutturazione dell'architettura modello MVC
 * utilizzo dei TDD
