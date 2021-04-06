@@ -8,6 +8,7 @@ module.exports = {
         host: process.env.DEV_DBHOST,
         port: process.env.DEV_DBPORT,
         dialect: 'postgres',
+        logging: false,
     },
     test: {
         username: process.env.DEV_DBUSER,
@@ -16,6 +17,7 @@ module.exports = {
         host: process.env.DEV_DBHOST,
         port: process.env.DEV_DBPORT,
         dialect: 'postgres',
+        logging: false,
     },
     production: {
         username: process.env.DEV_DBUSER,

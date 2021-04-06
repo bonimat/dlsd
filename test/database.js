@@ -1,6 +1,6 @@
 const { expect, assert } = require('chai');
-const { pool } = require('./../config/dbConfig');
-const { sequelize } = require('../models/index');
+
+const { Role, sequelize } = require('../models/index');
 
 describe('Database Tests', function () {
     describe('Test works', function () {
@@ -13,6 +13,16 @@ describe('Database Tests', function () {
         it('Auth connection', async function () {
             await sequelize.authenticate();
             assert(true, true);
+        });
+    });
+});
+describe('Model Tests', function () {
+    describe('test role method', function () {
+        it('findOne work', function (done) {
+            Role.findOne({ where: { rolename: 'user' } }).then((data) => {
+                expect(data.id).exist();
+            });
+            done();
         });
     });
 });

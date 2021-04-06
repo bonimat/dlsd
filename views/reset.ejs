@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css" rel="stylesheet" />
-    <title>Login</title>
+    <title>Reset Password</title>
 </head>
 <body>
-    <h1>Login</h1>
+    <h1>Reset Password</h1>
+    
     <% if (messages.success_msg) { %>
         <ul>
             <li><%= messages.success_msg %></li>
@@ -20,21 +21,20 @@
         </ul>
     <% } %>
     
-    <form action="/users/login" method="POST">
-        <div>
-            <input id="email" type="text" name="email" placeholder="Email" required /> 
-        </div>
+    <form method="POST">
+
         <div>
             <input id="password" type="password" name="password" placeholder="Password" required /> 
         </div>
-        
         <div>
-            <input type="submit" value="Login" />
+            <input id="password2" type="password" name="password2" placeholder="Confirm Password" required /> 
+        </div>
+        <div>
+            <input type="submit" value="Reset" />
         </div>
         
         <ul>
             <li><a href="/users/register"> Register</a></li>
-            <li><a href="/users/forgot">Reset your password</a></li>
         </ul>
         
     </form>
