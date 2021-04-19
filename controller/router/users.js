@@ -19,15 +19,15 @@ const passport = require('passport');
 const crypto = require('crypto');
 
 router.route('/users/login').get(checkAuthenticated, (req, res) => {
-    res.render('login');
+    res.render('login', { hasAuthButton: false });
 });
 
 router.route('/users/register').get(checkAuthenticated, (req, res) => {
-    res.render('register');
+    res.render('register', { hasAuthButton: false });
 });
 
 router.route('/users/dashboard').get(checkNotAuthenticated, (req, res) => {
-    res.render('dashboard', { user: req.user.firstname });
+    res.render('dashboard', { hasAuthButton: false, user: req.user.firstname });
 });
 
 router.route('/users/logout').get((req, res) => {
@@ -80,7 +80,10 @@ router.route('/users/register').post(async (req, res) => {
     }
 
     if (errors.length > 0) {
-        res.render('register', { errors });
+        res.render('register', {
+            hasAuthButton: req.isAuthenticated(),
+            errors,
+        });
     } else {
         // For validation has passed
         const hashadPassword = await bcrypt.hash(password, 10);
@@ -129,8 +132,9 @@ router.route('/users/login').post(
 );
 
 router.route('/users/forgot').get((req, res) => {
-    res.render('forgot');
+    res.render('forgot', { hasAuthButton: false });
 });
+
 // https://www.youtube.com/watch?v=UV9FvlTySGg&t=273s
 // http://sahatyalkabov.com/how-to-implement-password-reset-in-nodejs/
 router.route('/users/forgot').post(async (req, res) => {
@@ -166,7 +170,6 @@ router.route('/users/forgot').post(async (req, res) => {
         return res.redirect('/users/forgot');
     });
 });
-
 router.route('/users/reset/:token').get((req, res) => {
     console.log(req.params.token);
     console.log(Date.now() + 3600000);
@@ -186,6 +189,7 @@ router.route('/users/reset/:token').get((req, res) => {
                 return res.redirect('/users/forgot');
             }
             res.render('reset', {
+                hasAuthButton: false,
                 user: req.user,
             });
         })
@@ -229,7 +233,7 @@ router.route('/users/reset/:token').post(async (req, res) => {
     }
 
     if (errors.length > 0) {
-        res.render('reset', { errors });
+        res.render('reset', { hasAuthButton: true, errors });
     } else {
         // For validation has passed
         const hashadPassword = await bcrypt.hash(password, 10);

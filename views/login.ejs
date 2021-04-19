@@ -1,42 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css" rel="stylesheet" />
-    <title>Login</title>
-</head>
-<body>
-    <h1>Login</h1>
-    <% if (messages.success_msg) { %>
-        <ul>
-            <li><%= messages.success_msg %></li>
-        </ul>
-
-    <% } %>
-    <% if (messages.error) { %>
-        <ul>
-            <li><%= messages.error %></li>
-        </ul>
-    <% } %>
-    
-    <form action="/users/login" method="POST">
-        <div>
-            <input id="email" type="text" name="email" placeholder="Email" required /> 
-        </div>
-        <div>
-            <input id="password" type="password" name="password" placeholder="Password" required /> 
-        </div>
+    <head>
+        <%- include('./partials/head'); %>
+        <title>Sign-In</title>
+    </head>   
+    <body class="container">
+        <header>
+            <%- include('./partials/header'); %>
+        </header>
+        <main>
+            <div class="container mt-4">
+                <div class="col-xl-5 col-md-8">
+                    <h3>Sign-In</h3>
+                    <form action="/users/login" method="POST" class="border bg-white rounded shadow-5-strong p-5">
+                        <div class="form-outline mb-4">
+                            <input type="email" id="email" name="email" placeholder="Email" required class="form-control" autofocus/>
+                        </div>
+                        <div class="form-outline mb-4">
+                            <input type="password" id="password" name="password" placeholder="Password" class="form-control" />
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col text-right">
+                                <a href="/users/register">Sign-On</a> | 
+                                <a href="/users/forgot">Forgot password?</a>                
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+                    </form>
+                </div>
+            </div>          
         
-        <div>
-            <input type="submit" value="Login" />
-        </div>
-        
-        <ul>
-            <li><a href="/users/register"> Register</a></li>
-            <li><a href="/users/forgot">Reset your password</a></li>
-        </ul>
-        
-    </form>
-</body>
+        <% if (messages.success_msg) { %>
+            <div >
+                <ul class="list-group">
+                    <li class="list-group-item ist-group-item-success""><%= messages.success_msg %></li>
+                </ul>
+            </div>
+            <% } %>
+            <% if (messages.error) { %>
+            <div >
+                <ul class="list-group">
+                    <li class="list-group-item list-group-item-danger"><%= messages.error %></li>
+                </ul>
+            </div>
+            <% } %>
+        </main>    
+        <footer>
+            <%- include('./partials/footer'); %>
+        </footer>
+    </body>
 </html>

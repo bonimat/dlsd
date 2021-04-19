@@ -42,10 +42,14 @@ app.use(logger('dev'));
 app.use(flash());
 
 app.get('/', (req, res) => {
-    res.render('index');
+    res.render('index', { hasAuthButton: true });
 });
 
 app.use('/', usersRouter);
+
+app.use(function (req, res) {
+    res.status(404).render('error404');
+});
 
 if (!module.parent) {
     app.listen(PORT, () => {

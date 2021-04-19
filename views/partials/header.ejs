@@ -1,0 +1,12 @@
+  <nav class="navbar fixed-top  navbar-expand navbar-dark bg-dark ">
+    <div class="container">
+      <a class="navbar-brand" href="#">Digital Learning System - Dashboard</a>
+      <% if (hasAuthButton) { %>
+         <ul class="nav navbar-nav navbar-right">
+          <li><a role="button" class="btn btn-outline-primary btn-sm mx-2" href="/users/register">Sign-On</a></li>
+          <li><a role="button" class="btn btn-primary btn-sm mx-2" href="/users/login">Sign-In</a></li>
+        </ul> 
+        <% } %>
+      </div>
+    </div>
+  </nav>

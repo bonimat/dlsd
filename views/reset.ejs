@@ -1,42 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css" rel="stylesheet" />
-    <title>Reset Password</title>
-</head>
-<body>
-    <h1>Reset Password</h1>
-    
-    <% if (messages.success_msg) { %>
-        <ul>
-            <li><%= messages.success_msg %></li>
-        </ul>
+    <%- include('./partials/head'); %>
+    <title>Sign-In</title>
+<body class="container">
+<header>
+    <%- include('./partials/header'); %>
+</header>
 
-    <% } %>
-    <% if (messages.error) { %>
-        <ul>
-            <li><%= messages.error %></li>
-        </ul>
-    <% } %>
+<main>
+    <div class="container border mt-4">
+        <div class="col-xl-5 col-md-8">
+            <h1>New Password</h1>
     
-    <form method="POST">
-
-        <div>
-            <input id="password" type="password" name="password" placeholder="Password" required /> 
+         <form method="POST" class="bg-white rounded shadow-5-strong p-5">
+                <div class="form-outline mb-4">
+                    <input id="password" type="password" name="password" placeholder="Password" required class="form-control" autofocus/> 
+                </div>
+                <div class="form-outline mb-4">
+                     <input id="password2" type="password" name="password2" placeholder="Confirm Password" required /> 
+                </div>
+                <input type="submit" value="Reset" />
         </div>
-        <div>
-            <input id="password2" type="password" name="password2" placeholder="Confirm Password" required /> 
-        </div>
-        <div>
-            <input type="submit" value="Reset" />
-        </div>
-        
+        <div class="row mb-4">
         <ul>
             <li><a href="/users/register"> Register</a></li>
         </ul>
-        
+        </div>
     </form>
+
+</main>
+<% if (messages.success_msg) { %>
+    <div >
+        <ul class="list-group">
+            <li class="list-group-item ist-group-item-success""><%= messages.success_msg %></li>
+        </ul>
+    </div>
+    <% } %>
+    <% if (messages.error) { %>
+    <div >
+        <ul class="list-group">
+            <li class="list-group-item list-group-item-danger"><%= messages.error %></li>
+        </ul>
+    </div>
+    <% } %>
 </body>
 </html>
