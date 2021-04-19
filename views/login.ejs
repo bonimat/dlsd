@@ -10,9 +10,9 @@
         </header>
         <main>
             <div class="container mt-4">
-                <div class="col-xl-5 col-md-8">
-                    <h3>Sign-In</h3>
-                    <form action="/users/login" method="POST" class="border bg-white rounded shadow-5-strong p-5">
+                <div class="border col-xl-5 col-md-8">
+                    <h3 class="px-5 mt-3">Sign-In</h3>
+                    <form action="/users/login" method="POST" class=" bg-white rounded shadow-5-strong p-5">
                         <div class="form-outline mb-4">
                             <input type="email" id="email" name="email" placeholder="Email" required class="form-control" autofocus/>
                         </div>
@@ -27,23 +27,23 @@
                         </div>
                         <button type="submit" class="btn btn-primary btn-block">Sign in</button>
                     </form>
+
+                    <% if (messages.success_msg) { %>
+                        <div >
+                            <ul class="list-group">
+                                <li class="list-group-item ist-group-item-success""><%= messages.success_msg %></li>
+                            </ul>
+                        </div>
+                        <% } %>
+                        <% if (messages.error) { %>
+                        <div >
+                            <ul class="list-group">
+                                <li class="list-group-item list-group-item-danger"><%= messages.error %></li>
+                            </ul>
+                        </div>
+                        <% } %>
                 </div>
             </div>          
-        
-        <% if (messages.success_msg) { %>
-            <div >
-                <ul class="list-group">
-                    <li class="list-group-item ist-group-item-success""><%= messages.success_msg %></li>
-                </ul>
-            </div>
-            <% } %>
-            <% if (messages.error) { %>
-            <div >
-                <ul class="list-group">
-                    <li class="list-group-item list-group-item-danger"><%= messages.error %></li>
-                </ul>
-            </div>
-            <% } %>
         </main>    
         <footer>
             <%- include('./partials/footer'); %>

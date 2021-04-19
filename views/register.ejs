@@ -9,10 +9,10 @@
             <%- include('./partials/header'); %>
         </header>
         <main>   
-            <div class="container mt-4">
-                <div class="col-xl-5 col-md-8">
-                    <h3>Create an account</h3>
-                    <form action="/users/register" method="POST" class="border bg-white rounded shadow-5-strong p-5">
+            <div class="container  mt-4">
+                <div class="border col-xl-5 col-md-8">
+                    <h3 class="px-5 mt-3">Create an account</h3>
+                    <form action="/users/register" method="POST" class="bg-white rounded shadow-5-strong p-5">
                         <div class="form-outline mb-4">
                             <input class="form-control" id="username" type="text" name="username" placeholder="Username" required autofocus/>
                             <label class="visually-hidden" for="username">Username</label>
@@ -45,19 +45,21 @@
                             Already registered? <a href="/users/login">Login here</a>
                         </div>
                     </form>
+
+                    <% if (typeof errors !='undefined' ) { %>
+                        <div class="alert alert-danger" role="alert">
+                            <ul class="list-group">
+                                <% errors.forEach(error=> { %>
+                                    <li class="list-group-item list-group-item-danger">
+                                        <%= error.message %>
+                                    </li>
+                                    <% }) %>
+                            </ul>
+                        </div>
+                        <% } %>
+
                 </div>
             </div>
-            <% if (typeof errors !='undefined' ) { %>
-                <div class="alert alert-danger" role="alert">
-                    <ul class="list-group">
-                        <% errors.forEach(error=> { %>
-                            <li class="list-group-item list-group-item-danger">
-                                <%= error.message %>
-                            </li>
-                            <% }) %>
-                    </ul>
-                </div>
-                <% } %>
         </main>
         <footer>
             <%- include('./partials/footer'); %>

@@ -9,40 +9,42 @@
 </header>
 
 <main>
-    <div class="container border mt-4">
-        <div class="col-xl-5 col-md-8">
-            <h1>New Password</h1>
+    <div class="container mt-4">
+        <div class="border col-xl-5 col-md-8">
+            <h3 class="px-5 mt-3">New Password</h3>
     
-         <form method="POST" class="bg-white rounded shadow-5-strong p-5">
+            <form method="POST" class="bg-white rounded shadow-5-strong p-5">
                 <div class="form-outline mb-4">
                     <input id="password" type="password" name="password" placeholder="Password" required class="form-control" autofocus/> 
                 </div>
                 <div class="form-outline mb-4">
-                     <input id="password2" type="password" name="password2" placeholder="Confirm Password" required /> 
+                    <input id="password2" type="password" name="password2" placeholder="Confirm Password" required /> 
                 </div>
                 <input type="submit" value="Reset" />
+                <div class="row mb-4">
+                <ul>
+                    <li><a href="/users/register"> Register</a></li>
+                </ul>
+            </form>
+            <% if (messages.success_msg) { %>
+                <div >
+                    <ul class="list-group">
+                        <li class="list-group-item ist-group-item-success""><%= messages.success_msg %></li>
+                    </ul>
+                </div>
+                <% } %>
+                <% if (messages.error) { %>
+                <div >
+                    <ul class="list-group">
+                        <li class="list-group-item list-group-item-danger"><%= messages.error %></li>
+                    </ul>
+                </div>
+                <% } %>
         </div>
-        <div class="row mb-4">
-        <ul>
-            <li><a href="/users/register"> Register</a></li>
-        </ul>
-        </div>
-    </form>
-
+    </div>
 </main>
-<% if (messages.success_msg) { %>
-    <div >
-        <ul class="list-group">
-            <li class="list-group-item ist-group-item-success""><%= messages.success_msg %></li>
-        </ul>
-    </div>
-    <% } %>
-    <% if (messages.error) { %>
-    <div >
-        <ul class="list-group">
-            <li class="list-group-item list-group-item-danger"><%= messages.error %></li>
-        </ul>
-    </div>
-    <% } %>
+<footer>
+    <%- include('./partials/footer'); %>
+</footer>
 </body>
 </html>
