@@ -21,6 +21,12 @@ http://sahatyalkabov.com/how-to-implement-password-reset-in-nodejs/
 * unificazione dell'utilizzo di configurazione e variabili di ambiente con dotenv. 
 
 #### File .env:
+DB_USER=
+DB_PASSWORD=
+DB_HOST=
+DB_PORT=
+DB_DATABASE=
+PORT=
 DEV_DBUSER=
 DEV_DBPASS=
 DEV_DBHOST=
@@ -32,6 +38,8 @@ TEST_DBPORT=
 PROD_DBNAME=
 DEV_DBNAME=
 TEST_DBNAME=
+SERVICEMAIL=
+SERVICEMAILPSW=
 
 ### Versione 1.1.0-0
 Approcciare lo sviluppo di un tool per la gestione di informazioni contenute su sistemi digitali a supporto della didattica inteconnessi.
