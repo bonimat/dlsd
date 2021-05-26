@@ -4,7 +4,6 @@ const path = require('path');
 require('dotenv').config({ path: path.resolve(__dirname, '../../.env') });
 
 const db = require('../../models/index.js');
-const sequelize = db.sequelize;
 const User = db.User;
 const Role = db.Role;
 
